@@ -12,4 +12,11 @@
       <ProjectReference Include="..\EquipmentLoan.Exceptions\EquipmentLoan.Exceptions.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Data\" />
+      <Folder Include="DbContext\" />
+      <Folder Include="Migrations\" />
+      <Folder Include="Repositories\" />
+    </ItemGroup>
+
 </Project>

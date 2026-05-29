@@ -11,4 +11,10 @@
       <ProjectReference Include="..\EquipmentLoan.Exceptions\EquipmentLoan.Exceptions.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Dtos\" />
+      <Folder Include="Interfaces\" />
+      <Folder Include="Services\" />
+    </ItemGroup>
+
 </Project>
