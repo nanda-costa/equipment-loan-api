@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\EquipmentLoan.Application\EquipmentLoan.Application.csproj" />
+      <ProjectReference Include="..\EquipmentLoan.Domain\EquipmentLoan.Domain.csproj" />
+      <ProjectReference Include="..\EquipmentLoan.Exceptions\EquipmentLoan.Exceptions.csproj" />
+    </ItemGroup>
+
+</Project>
