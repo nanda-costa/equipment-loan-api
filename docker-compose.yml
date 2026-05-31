@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  postgres-db:
+    image: postgres:16-alpine
+    container_name: equipment_loan_postgres
+    restart: always
+
+    networks:
+      - equipment_loan_network
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: equipment_loan_123
+      POSTGRES_DB: equipment_loan_db
+      TZ: America/Manaus
+
+    ports:
+      - "5434:5432"
+
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          memory: 256M
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d equipment_loan_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+
+networks:
+  equipment_loan_network:
+    driver: bridge
+
+volumes:
+  pg_data:
+    driver: local
