@@ -1,5 +1,4 @@
 
-
 namespace EquipmentLoan.Domain.Entities
 {
     public class Category

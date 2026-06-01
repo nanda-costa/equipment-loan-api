@@ -2,7 +2,6 @@ namespace EquipmentLoan.Domain.Enums;
 
 public enum Roles
 {
-    Adim = 1,
+    Admin = 1,
     User = 2
-        
 }

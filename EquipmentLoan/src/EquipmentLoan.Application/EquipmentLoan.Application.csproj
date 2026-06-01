@@ -12,9 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Dtos\" />
-      <Folder Include="Interfaces\" />
-      <Folder Include="Services\" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     </ItemGroup>
 
 </Project>
