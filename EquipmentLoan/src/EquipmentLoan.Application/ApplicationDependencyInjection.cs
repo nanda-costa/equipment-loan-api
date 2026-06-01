@@ -23,6 +23,14 @@ namespace EquipmentLoan.Application
             services.AddScoped<IUpdateEquipment, UpdateEquipmentService>();
             services.AddScoped<IDeleteEquipment, DeleteEquipmentService>();
             
+
+            services.AddScoped<ICreateLoan, CreateLoanService>();
+            services.AddScoped<IApproveLoan, ApproveLoanService>();
+            services.AddScoped<IRejectLoan, RejectLoanService>();
+            services.AddScoped<IReturnLoan, ReturnLoanService>();
+            services.AddScoped<IGetMyLoans, GetMyLoansService>();
+            services.AddScoped<IGetLoansByFilter, GetLoansByFilterService>();
+            
             return services;
         }
     }
