@@ -11,6 +11,8 @@ namespace EquipmentLoan.Infrastructure
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             
             services.AddScoped<IEquipmentRepository, EquipmentRepository>();
+
+            services.AddScoped<ILoanRepository, LoanRepository>();
             
             return services;
         }
