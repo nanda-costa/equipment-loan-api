@@ -2,6 +2,7 @@ using EquipmentLoan.Application.Dtos.Maintenence;
 using EquipmentLoan.Application.Interfaces.Maintenence;
 using EquipmentLoan.Domain.Entities;
 using EquipmentLoan.Domain.Enums;
+using EquipmentLoan.Domain.Exceptions;
 using EquipmentLoan.Domain.Interfaces;
 
 namespace EquipmentLoan.Application.Services
@@ -21,22 +22,21 @@ namespace EquipmentLoan.Application.Services
 
         public async Task<MaintenanceResponseDto> Execute(MaintenanceCreateRequestDto requestDto)
         {
-            var equipment = await _equipmentRepository.GetByIdAsync(requestDto.EquipmentId);
+            Equipment equipment = await _equipmentRepository.GetByIdAsync(requestDto.EquipmentId);
             if (equipment == null) throw new Exception("Equipamento não encontrado.");
 
             if (equipment.Status == EquipmentStatus.Maintenance)
-                throw new Exception("Este equipamento já se encontra em processo de manutenção.");
+                throw new BusinessException("Este equipamento já se encontra em processo de manutenção.");
 
             equipment.Status = EquipmentStatus.Maintenance;
             _equipmentRepository.Update(equipment);
 
-            // 🛠️ MAPEAMENTO CORRIGIDO SEM 'IsResolved':
-            var maintenance = new Maintenance
+            Maintenance maintenance = new Maintenance
             {
                 EquipmentId = requestDto.EquipmentId,
                 Description = requestDto.Description,
                 StartDate = DateTime.UtcNow,
-                EndDate = null // Nasce sem data de fim (em aberto)
+                EndDate = null 
             };
 
             await _maintenanceRepository.AddAsync(maintenance);
@@ -52,7 +52,7 @@ namespace EquipmentLoan.Application.Services
                 Description = maintenance.Description,
                 StartDate = maintenance.StartDate,
                 EndDate = maintenance.EndDate,
-                IsResolved = false // Como acabou de começar, sempre nasce false
+                IsResolved = false
             };
         }
     }
