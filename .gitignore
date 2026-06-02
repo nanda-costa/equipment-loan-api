@@ -29,7 +29,7 @@ Desktop.ini
 *.userprefs
 
 # Secrets and Local Configurations
-appsettings.Development.json
+#appsettings.Development.json
 *.secrets.json
 .env
 .env.local
