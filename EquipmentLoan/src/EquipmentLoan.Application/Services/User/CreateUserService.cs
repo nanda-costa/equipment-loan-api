@@ -1,17 +1,21 @@
 using EquipmentLoan.Application.DTOs;
+using EquipmentLoan.Application.Interfaces.PasswordHasher;
 using EquipmentLoan.Application.Interfaces.User;
 using EquipmentLoan.Domain.Entities;
 using EquipmentLoan.Domain.Interfaces;
+using EquipmentLoan.Exceptions;
 
 namespace EquipmentLoan.Application.Services;
 
 public class CreateUserService : ICreateUser
 {
     private readonly IUserRepository _userRepository;
+    private readonly IPasswordHasher _passwordHasher;
 
-    public CreateUserService(IUserRepository userRepository)
+    public CreateUserService(IUserRepository userRepository, IPasswordHasher passwordHasher)
     {
         _userRepository = userRepository;
+        _passwordHasher = passwordHasher;
     }
 
     public async Task<UserResponseDto> Execute(UserCreateRequestDto requestDto)
@@ -19,14 +23,14 @@ public class CreateUserService : ICreateUser
         User existingUser = await _userRepository.GetByEmailAsync(requestDto.Email);
         if (existingUser != null)
         {
-            throw new Exception("Este e-mail já está em uso no sistema.");
+            throw new BadHttpRequestException("Este e-mail já está em uso no sistema.");
         }
 
         User user = new User
         {
             Name = requestDto.Name,
             Email = requestDto.Email,
-            PasswordHash = requestDto.Password, // 🔒 O Membro 2 vai mudar isso aqui para _hashService.Hash(password)
+            PasswordHash = _passwordHasher.HashPassword(requestDto.Password),
             Role = requestDto.Role
         };
 

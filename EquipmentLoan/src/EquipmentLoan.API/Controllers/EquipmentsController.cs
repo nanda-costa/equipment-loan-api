@@ -6,12 +6,13 @@ using EquipmentLoan.Domain.Enums;
 
 namespace EquipmentLoan.API.Controllers
 {
+    [Authorize] 
     [ApiController]
     [Route("api/[controller]")]
     public class EquipmentsController : ControllerBase
     {
+        [Authorize(Roles = "Admin")] 
         [HttpPost]
-        [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<EquipmentResponseDto>> Create(
@@ -46,8 +47,8 @@ namespace EquipmentLoan.API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")] 
         [HttpPut("{id:guid}")]
-        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Update(
@@ -61,8 +62,8 @@ namespace EquipmentLoan.API.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Admin")] 
         [HttpDelete("{id:guid}")]
-        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(

@@ -1,6 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using EquipmentLoan.Application.Interfaces;
+using EquipmentLoan.Application.Interfaces.Login;
 using EquipmentLoan.Application.Interfaces.Maintenence;
+using EquipmentLoan.Application.Interfaces.PasswordHasher;
+using EquipmentLoan.Application.Interfaces.Reservation;
 using EquipmentLoan.Application.Interfaces.User;
 using EquipmentLoan.Application.Services;
 
@@ -38,7 +41,13 @@ namespace EquipmentLoan.Application
             services.AddScoped<IGetUserById, GetUserByIdService>();
             
             services.AddScoped<IStartMaintenance, StartMaintenanceService>();
+            services.AddScoped<IFinalizeMaintenance, FinalizeMaintenanceService>();
             
+            services.AddScoped<ICancelReservation, CancelReservationService>();
+            
+            services.AddScoped<ILoginUser, LoginUserService>();
+            
+            services.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
             return services;
         }
     }
