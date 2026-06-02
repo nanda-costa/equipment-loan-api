@@ -9,7 +9,7 @@ public class User
     public string Email { get; set; } = string.Empty;
     public string PasswordHash { get; set; } = string.Empty;
     public Roles Role { get; set; } = Roles.User;
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public ICollection<Loan> Loans { get; set; } = new List<Loan>();
     public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();

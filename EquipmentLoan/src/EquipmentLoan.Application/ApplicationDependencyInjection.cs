@@ -1,5 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using EquipmentLoan.Application.Interfaces;
+using EquipmentLoan.Application.Interfaces.Maintenence;
+using EquipmentLoan.Application.Interfaces.User;
 using EquipmentLoan.Application.Services;
 
 namespace EquipmentLoan.Application
@@ -30,6 +32,12 @@ namespace EquipmentLoan.Application
             services.AddScoped<IReturnLoan, ReturnLoanService>();
             services.AddScoped<IGetMyLoans, GetMyLoansService>();
             services.AddScoped<IGetLoansByFilter, GetLoansByFilterService>();
+            
+            services.AddScoped<ICreateUser, CreateUserService>();
+            services.AddScoped<IGetAllUsers, GetAllUsersService>();
+            services.AddScoped<IGetUserById, GetUserByIdService>();
+            
+            services.AddScoped<IStartMaintenance, StartMaintenanceService>();
             
             return services;
         }

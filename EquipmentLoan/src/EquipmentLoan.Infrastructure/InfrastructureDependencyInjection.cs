@@ -14,6 +14,12 @@ namespace EquipmentLoan.Infrastructure
 
             services.AddScoped<ILoanRepository, LoanRepository>();
             
+            services.AddScoped<IUserRepository, UserRepository>();
+            
+            services.AddScoped<IReservationRepository, ReservationRepository>();
+            
+            services.AddScoped<IMaintenanceRepository, MaintenanceRepository>();
+            
             return services;
         }
     }
