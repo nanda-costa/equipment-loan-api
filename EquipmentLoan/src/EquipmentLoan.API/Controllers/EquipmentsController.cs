@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using EquipmentLoan.Application.DTOs;
 using EquipmentLoan.Application.Interfaces;
@@ -10,6 +11,7 @@ namespace EquipmentLoan.API.Controllers
     public class EquipmentsController : ControllerBase
     {
         [HttpPost]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<EquipmentResponseDto>> Create(
@@ -30,8 +32,7 @@ namespace EquipmentLoan.API.Controllers
             var result = await service.Execute(status, categoryId);
             return Ok(result);
         }
-        
-        
+
         [HttpGet("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -46,6 +47,7 @@ namespace EquipmentLoan.API.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Update(
@@ -60,6 +62,7 @@ namespace EquipmentLoan.API.Controllers
         }
 
         [HttpDelete("{id:guid}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(
@@ -72,4 +75,4 @@ namespace EquipmentLoan.API.Controllers
             return NoContent();
         }
     }
-}
+}ss

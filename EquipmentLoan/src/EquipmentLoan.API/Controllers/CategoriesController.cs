@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using EquipmentLoan.Application.DTOs;
 using EquipmentLoan.Application.Interfaces;
@@ -9,13 +10,14 @@ namespace EquipmentLoan.API.Controllers
     public class CategoriesController : ControllerBase
     {
         [HttpPost]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CategoryResponseDto>> Create(
             [FromBody] CategoryCreateRequestDto request,
             [FromServices] ICreateCategory service)
         {
-            CategoryResponseDto result  = await service.Execute(request);
+            CategoryResponseDto result = await service.Execute(request);
             return Created(string.Empty, result);
         }
 
@@ -24,7 +26,6 @@ namespace EquipmentLoan.API.Controllers
         public async Task<ActionResult<IEnumerable<CategoryResponseDto>>> GetAll(
             [FromServices] IGetAllCategories service)
         {
-            
             var result = await service.Execute();
             return Ok(result);
         }
@@ -38,11 +39,12 @@ namespace EquipmentLoan.API.Controllers
         {
             CategoryResponseDto result = await service.Execute(id);
             if (result == null) return NotFound(new { message = "Categoria não encontrada." });
-            
+
             return Ok(result);
         }
 
         [HttpPut("{id:guid}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Update(
@@ -52,11 +54,12 @@ namespace EquipmentLoan.API.Controllers
         {
             var updated = await service.Execute(id, request);
             if (!updated) return NotFound(new { message = "Categoria não encontrada." });
-            
+
             return NoContent();
         }
 
         [HttpDelete("{id:guid}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(
@@ -65,7 +68,7 @@ namespace EquipmentLoan.API.Controllers
         {
             var deleted = await service.Execute(id);
             if (!deleted) return NotFound(new { message = "Categoria não encontrada." });
-            
+
             return NoContent();
         }
     }
