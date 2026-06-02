@@ -62,5 +62,5 @@ O sistema conta com as seguintes entidades principais para o funcionamento das r
 
 ### Passo 1: Clonar o repositório e acessar a branch de desenvolvimento
 ```bash
-git clone <url-do-repositorio>
+git clone <git@github.com:nanda-costa/equipment-loan-api.git>
 git checkout develop
